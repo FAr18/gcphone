@@ -1,14 +1,16 @@
 import PhoneAPI from './../../PhoneAPI'
 
 const state = {
-  messages: []
+  messages: [],
+  copedImage: undefined
 }
 
 const getters = {
   messages: ({ messages }) => messages,
   nbMessagesUnread: ({ messages }) => {
     return messages.filter(e => e.isRead !== 1).length
-  }
+  },
+  copedImage: ({ copedImage }) => copedImage
 }
 
 const actions = {
@@ -37,6 +39,9 @@ const actions = {
   },
   resetMessage ({ commit }) {
     commit('SET_MESSAGES', [])
+  },
+  setCopedImage ({ commit }, image) {
+    commit('SET_COPED_IMAGE', image)
   }
 }
 
@@ -53,6 +58,9 @@ const mutations = {
         state.messages[i].isRead = 1
       }
     }
+  },
+  SET_COPED_IMAGE (state, image) {
+    state.copedImage = image
   }
 }
 

@@ -21,8 +21,8 @@
             </span>
         </div>
     </div>
-
     <div id='sms_write' @contextmenu.prevent="showOptions">
+        <div id="sms_menu" @click="onRight"><i class="fas fa-bars"></i></div>
         <input
           type="text"
           v-model="message"
@@ -37,6 +37,21 @@
           </svg>
         </div>
     </div>
+    <!-- <div id='sms_write' @contextmenu.prevent="showOptions">
+        <input
+          type="text"
+          v-model="message"
+          :placeholder="IntlString('APP_MESSAGE_PLACEHOLDER_ENTER_MESSAGE')"
+          v-autofocus
+          @keyup.enter.prevent="send"
+        >
+        <div class="sms_send" @click.stop="send">
+          <svg height="24" viewBox="0 0 24 24" width="24" @click.stop="send">
+              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+              <path d="M0 0h24v24H0z" fill="none"/>
+          </svg>
+        </div>
+    </div> -->
   </div>
 </template>
 
@@ -61,7 +76,7 @@ export default {
     PhoneTitle
   },
   methods: {
-    ...mapActions(['setMessageRead', 'sendMessage', 'deleteMessage', 'startCall']),
+    ...mapActions(['setMessageRead', 'sendMessage', 'deleteMessage', 'startCall', 'setCopedImage']),
     resetScroll () {
       this.$nextTick(() => {
         let elem = document.querySelector('#sms_list')
@@ -160,6 +175,11 @@ export default {
         }
         if (isSMSImage === true) {
           choix = [{
+            id: 'save',
+            title: this.IntlString('APP_MESSAGE_COPY_PHOTO'),
+            icons: 'fa-file-download'
+          },
+          {
             id: 'zoom',
             title: this.IntlString('APP_MESSAGE_ZOOM_IMG'),
             icons: 'fa-search'
@@ -178,6 +198,18 @@ export default {
           })
         } else if (data.id === 'zoom') {
           this.imgZoom = message.message
+        } else if (data.id === 'save') {
+          this.setCopedImage(message.message)
+          try {
+            const $copyTextarea = this.$refs.copyTextarea
+            $copyTextarea.value = message.message
+            $copyTextarea.style.height = '20px'
+            $copyTextarea.focus()
+            $copyTextarea.select()
+            await document.execCommand('copy')
+            $copyTextarea.style.height = '0'
+          } catch (error) {
+          }
         }
       } catch (e) {
       } finally {
@@ -252,16 +284,17 @@ export default {
     async showOptions () {
       try {
         this.ignoreControls = true
-        let choix = [
-          {id: 1, title: this.IntlString('APP_MESSAGE_SEND_GPS'), icons: 'fa-location-arrow'},
-          {id: -1, title: this.IntlString('CANCEL'), icons: 'fa-undo'}
-        ]
+        let choix = []
+        if (this.copedImage) {
+          choix.push({id: 9, title: this.IntlString('APP_MESSAGE_SEND_COPED_PHOTO'), icons: 'fa-share-square'})
+        }
         if (this.enableTakePhoto) {
-          choix = [
-            {id: 1, title: this.IntlString('APP_MESSAGE_SEND_GPS'), icons: 'fa-location-arrow'},
-            {id: 2, title: this.IntlString('APP_MESSAGE_SEND_PHOTO'), icons: 'fa-picture-o'},
-            {id: -1, title: this.IntlString('CANCEL'), icons: 'fa-undo'}
-          ]
+          choix.push({id: 1, title: this.IntlString('APP_MESSAGE_SEND_GPS'), icons: 'fa-location-arrow'})
+          choix.push({id: 2, title: this.IntlString('APP_MESSAGE_SEND_PHOTO'), icons: 'fa-picture-o'})
+          choix.push({id: -1, title: this.IntlString('CANCEL'), icons: 'fa-undo'})
+        } else {
+          choix.push({id: 1, title: this.IntlString('APP_MESSAGE_SEND_GPS'), icons: 'fa-location-arrow'})
+          choix.push({id: -1, title: this.IntlString('CANCEL'), icons: 'fa-undo'})
         }
         const data = await Modal.CreateModal({ choix })
         if (data.id === 1) {
@@ -279,6 +312,12 @@ export default {
             })
           }
         }
+        if (data.id === 9) {
+          this.sendMessage({
+            phoneNumber: this.phoneNumber,
+            message: this.copedImage
+          })
+        }
         this.ignoreControls = false
       } catch (e) {
       } finally {
@@ -293,7 +332,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['IntlString', 'messages', 'contacts', 'useMouse', 'enableTakePhoto']),
+    ...mapGetters(['IntlString', 'messages', 'contacts', 'useMouse', 'enableTakePhoto', 'copedImage']),
     messagesList () {
       return this.messages.filter(e => e.transmitter === this.phoneNumber).sort((a, b) => a.time - b.time)
     },
@@ -450,6 +489,18 @@ export default {
   font-size: 24px;
 }
 
+#sms_menu{
+    float: left;
+    padding-top: 16px;
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+#sms_menu i{
+    font-size: 24px;
+    color: #C0C0C0;
+}
+
 #sms_write{
     height: 56px;
     margin: 10px;
@@ -462,7 +513,6 @@ export default {
     border: none;
     outline: none;
     font-size: 18px;
-    margin-left: 14px;
     padding: 12px 5px;
     background-color: rgba(236, 236, 241, 0)
 }

@@ -58,6 +58,12 @@ export default {
     back: function () {
       if (this.disableList === true) return
       this.$router.push({ name: 'home' })
+    },
+    modifyImageMessage: function (message) {
+      return this.isSMSImage(message) ? this.IntlString('APP_MESSAGE_RECEIVED_PHOTO') : message
+    },
+    isSMSImage (message) {
+      return /^https?:\/\/.*\.(png|jpg|jpeg|gif)/.test(message)
     }
   },
   computed: {
@@ -99,7 +105,7 @@ export default {
           puce: messGroup[key].noRead,
           number: key,
           lastMessage: messGroup[key].lastMessage,
-          keyDesc: messGroup[key].keyDesc,
+          keyDesc: this.modifyImageMessage(messGroup[key].keyDesc),
           backgroundColor: messGroup[key].backgroundColor,
           icon: messGroup[key].icon,
           letter: messGroup[key].letter

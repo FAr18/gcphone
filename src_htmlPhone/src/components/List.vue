@@ -5,20 +5,21 @@
     <div v-if="title !== ''" class="phone_title" v-bind:style="styleTitle()">{{title}}</div>
     -->
     <div class="phone_content elements">
-        <div class="element" v-for='(elem, key) in list' 
-          v-bind:key="elem[keyDispay]"
-          v-bind:class="{ select: key === currentSelect}"
-          @click.stop="selectItem(elem)"
-          @contextmenu.prevent="optionItem(elem)"
-          >
-            <div class="elem-pic" v-bind:style="stylePuce(elem)" @click.stop="selectItem(elem)">
-              {{elem.letter || elem[keyDispay][0]}}
-            </div>
-            <div @click.stop="selectItem(elem)" v-if="elem.puce !== undefined && elem.puce !== 0" class="elem-puce">{{elem.puce}}</div>
-            <div @click.stop="selectItem(elem)" v-if="elem.keyDesc === undefined || elem.keyDesc === ''" class="elem-title">{{elem[keyDispay]}}</div>
-            <div @click.stop="selectItem(elem)" v-if="elem.keyDesc !== undefined && elem.keyDesc !== ''" class="elem-title-has-desc">{{elem[keyDispay]}}</div>
-            <div @click.stop="selectItem(elem)" v-if="elem.keyDesc !== undefined && elem.keyDesc !== ''" class="elem-description">{{elem.keyDesc}}</div>
-        </div>
+      <div class="element" v-for='(elem, key) in list' 
+        v-bind:key="elem[keyDispay]"
+        v-bind:class="{ select: key === currentSelect }"
+        @click.stop="selectItem(elem)"
+        @contextmenu.prevent="optionItem(elem)"
+        >
+          <div class="elem-option" @click.stop="optionItem(elem)"><i class="fas fa-ellipsis-h" v-if="elem.id != -1 && elem.num != -1"></i></div>
+          <div class="elem-pic" v-bind:style="stylePuce(elem)" @click.stop="selectItem(elem)">
+            {{elem.letter || elem[keyDispay][0]}}
+          </div>
+          <div @click.stop="selectItem(elem)" v-if="elem.puce !== undefined && elem.puce !== 0" class="elem-puce">{{elem.puce}}</div>
+          <div @click.stop="selectItem(elem)" v-if="elem.keyDesc === undefined || elem.keyDesc === ''" class="elem-title">{{elem[keyDispay]}}</div>
+          <div @click.stop="selectItem(elem)" v-if="elem.keyDesc !== undefined && elem.keyDesc !== ''" class="elem-title-has-desc">{{elem[keyDispay]}}</div>
+          <div @click.stop="selectItem(elem)" v-if="elem.keyDesc !== undefined && elem.keyDesc !== ''" class="elem-description">{{elem.keyDesc}}</div>
+      </div>
     </div>
   </div>
 </template>
@@ -176,6 +177,15 @@ export default {
   position: relative;
 }
 
+.elem-option {
+  padding: 5px;
+  width: 30px;
+}
+
+.elem-option i {
+  color: #aaaaaa
+}
+
 .element.select, .element:hover {
    background-color: #DDD;
 }
@@ -217,7 +227,7 @@ export default {
   position:absolute;
   display:block;
   width:75%;
-  left:73px;
+  left:101px;
   top:12px;
   font-size:13.5px;
   font-style:italic;
