@@ -62,6 +62,9 @@ export default {
     modifyImageMessage: function (message) {
       return this.isSMSImage(message) ? this.IntlString('APP_MESSAGE_RECEIVED_PHOTO') : message
     },
+    replaceImageUrl: function (message) {
+      return message.replace(/(http(s?):)([/|.|\w|\s|-]|:\d)*\.(?:jpg|gif|png)/g, this.IntlString('APP_MESSAGE_REPLACED_IMAGE_URL'))
+    },
     isSMSImage (message) {
       return /^https?:\/\/.*\.(png|jpg|jpeg|gif)/.test(message)
     }
@@ -105,7 +108,7 @@ export default {
           puce: messGroup[key].noRead,
           number: key,
           lastMessage: messGroup[key].lastMessage,
-          keyDesc: this.modifyImageMessage(messGroup[key].keyDesc),
+          keyDesc: this.replaceImageUrl(messGroup[key].keyDesc),
           backgroundColor: messGroup[key].backgroundColor,
           icon: messGroup[key].icon,
           letter: messGroup[key].letter

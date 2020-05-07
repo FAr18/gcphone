@@ -14,10 +14,10 @@
             <span class='sms_message sms_me'
               @click.stop="onActionMessage(mess)"
               v-bind:class="{ sms_other : mess.owner === 0}" :style="colorSmsOwner[mess.owner]">
-              <img v-if="isSMSImage(mess)" @click.stop="onActionMessage(mess)" class="sms-img" :src="mess.message">
-              <span v-else @click.stop="onActionMessage(mess)" >{{mess.message}}</span>
-                
-                <span @click.stop="onActionMessage(mess)" ><timeago class="sms_time" :since='mess.time' :auto-update="20" :style="colorSmsOwner[mess.owner]"></timeago></span>
+              <!-- <img v-if="isSMSImage(mess)" @click.stop="onActionMessage(mess)" class="sms-img" :src="mess.message">
+              <span v-else @click.stop="onActionMessage(mess)" >{{mess.message}}</span> -->
+              <span @click.stop="onActionMessage(mess)" v-html="modifyMessage(mess.message)"></span>
+              <span @click.stop="onActionMessage(mess)" ><timeago class="sms_time" :since='mess.time' :auto-update="20" :style="colorSmsOwner[mess.owner]"></timeago></span>
             </span>
         </div>
     </div>
@@ -60,6 +60,8 @@ import { mapGetters, mapActions } from 'vuex'
 import { generateColorForStr, getBestFontColor } from './../../Utils'
 import PhoneTitle from './../PhoneTitle'
 import Modal from '@/components/Modal/index.js'
+
+const imageRegex = /(http(s?):)([/|.|\w|\s|-]|:\d)*\.(?:jpg|gif|png)/g
 
 export default {
   data () {
@@ -142,12 +144,17 @@ export default {
     isSMSImage (mess) {
       return /^https?:\/\/.*\.(png|jpg|jpeg|gif)/.test(mess.message)
     },
+    modifyMessage (mess) {
+      return mess.replace(imageRegex, '<img style="width:100%; height:auto;" src="$&">')
+    },
     async onActionMessage (message) {
       try {
         // let message = this.messagesList[this.selectMessage]
         let isGPS = /(-?\d+(\.\d+)?), (-?\d+(\.\d+)?)/.test(message.message)
         let hasNumber = /#([0-9]+)/.test(message.message)
-        let isSMSImage = this.isSMSImage(message)
+        // let isSMSImage = this.isSMSImage(message)
+        imageRegex.lastIndex = 0
+        let hasImage = imageRegex.test(message.message)
         let choix = [{
           id: 'delete',
           title: this.IntlString('APP_MESSAGE_DELETE'),
@@ -173,7 +180,7 @@ export default {
             icons: 'fa-phone'
           }, ...choix]
         }
-        if (isSMSImage === true) {
+        if (hasImage === true) {
           choix = [{
             id: 'save',
             title: this.IntlString('APP_MESSAGE_COPY_PHOTO'),
@@ -197,12 +204,13 @@ export default {
             this.onSelectPhoneNumber(data.number)
           })
         } else if (data.id === 'zoom') {
-          this.imgZoom = message.message
+          this.imgZoom = message.message.match(imageRegex)[0]
         } else if (data.id === 'save') {
-          this.setCopedImage(message.message)
+          let image = message.message.match(imageRegex)[0]
+          this.setCopedImage(image)
           try {
             const $copyTextarea = this.$refs.copyTextarea
-            $copyTextarea.value = message.message
+            $copyTextarea.value = image
             $copyTextarea.style.height = '20px'
             $copyTextarea.focus()
             $copyTextarea.select()

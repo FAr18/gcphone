@@ -11,7 +11,7 @@
         @click.stop="selectItem(elem)"
         @contextmenu.prevent="optionItem(elem)"
         >
-          <div class="elem-option" @click.stop="optionItem(elem)"><i class="fas fa-ellipsis-h" v-if="elem.id != -1 && elem.num != -1"></i></div>
+          <!-- <div class="elem-option" @click.stop="optionItem(elem)"><i class="fas fa-ellipsis-h" v-if="elem.id != -1 && elem.num != -1"></i></div> -->
           <div class="elem-pic" v-bind:style="stylePuce(elem)" @click.stop="selectItem(elem)">
             {{elem.letter || elem[keyDispay][0]}}
           </div>
@@ -227,7 +227,7 @@ export default {
   position:absolute;
   display:block;
   width:75%;
-  left:101px;
+  left: 73px;
   top:12px;
   font-size:13.5px;
   font-style:italic;

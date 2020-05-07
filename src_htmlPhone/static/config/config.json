@@ -27,9 +27,9 @@
   "useWebRTCVocal": false,
   "RTCConfig": {
     "iceServers": [{
-      "urls": ["turn:barrax.needrp.net"],
-      "username": "gcphone",
-      "credential": "gcphone"
+      "urls": ["turn:gannon.ovh"],
+      "username": "jojo",
+      "credential": "pass"
     }]
   },
 
@@ -207,7 +207,7 @@
 	  "zh_TW__name": "暗網",
       "icons": "/html/static/img/icons_app/tchat.png",
       "routeName": "tchat"
-    },
+    }
   ],
   "defaultLanguage": "zh_TW",
   "language": {
@@ -888,6 +888,11 @@
       "APP_MESSAGE_CONTRACT_ENTER_NUMBER": "輸入號碼",
       "APP_MESSAGE_PLACEHOLDER_ENTER_MESSAGE": "發送訊息",
 	  "APP_MESSAGE_RECEIVED_PHOTO": "傳送了一張圖片",
+	  "APP_MESSAGE_REPLACED_IMAGE_URL": "[圖片]",
+	  "APP_MESSAGE_MESS_NUMBER": "號碼 ",
+	  "APP_MESSAGE_MESS_SMS": "訊息",
+	  "APP_MESSAGE_MESS_CALL": "撥號",
+	  "APP_MESSAGE_MESS_COPY": "複製號碼",
       "APP_DARKTCHAT_TITLE": "暗網",
       "APP_DARKTCHAT_NEW_CHANNEL": "新增頻道",
       "APP_DARKTCHAT_DELETE_CHANNEL": "刪除頻道",
