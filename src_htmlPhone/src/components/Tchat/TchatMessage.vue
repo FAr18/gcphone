@@ -14,7 +14,7 @@
       </div>
 
       <div class='tchat_write'>
-          <input type="text" placeholder="..." v-model="message" @keyup.enter.prevent="sendMessage">
+          <input type="text" placeholder="..." v-model="message" @keydown.enter.prevent="onEnterKeydown">
           <span class='tchat_send' @click="sendMessage">></span>
       </div>
     </div>
@@ -78,6 +78,11 @@ export default {
             message
           })
         }
+      }
+    },
+    onEnterKeydown (e) {
+      if (!e.isComposing) {
+        this.sendMessage()
       }
     },
     sendMessage () {

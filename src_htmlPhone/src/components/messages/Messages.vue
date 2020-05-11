@@ -14,8 +14,6 @@
             <span class='sms_message sms_me'
               @click.stop="onActionMessage(mess)"
               v-bind:class="{ sms_other : mess.owner === 0}" :style="colorSmsOwner[mess.owner]">
-              <!-- <img v-if="isSMSImage(mess)" @click.stop="onActionMessage(mess)" class="sms-img" :src="mess.message">
-              <span v-else @click.stop="onActionMessage(mess)" >{{mess.message}}</span> -->
               <span @click.stop="onActionMessage(mess)" v-html="modifyMessage(mess.message)"></span>
               <span @click.stop="onActionMessage(mess)" ><timeago class="sms_time" :since='mess.time' :auto-update="20" :style="colorSmsOwner[mess.owner]"></timeago></span>
             </span>
@@ -28,7 +26,7 @@
           v-model="message"
           :placeholder="IntlString('APP_MESSAGE_PLACEHOLDER_ENTER_MESSAGE')"
           v-autofocus
-          @keyup.enter.prevent="send"
+          @keydown.enter.prevent="onEnterKeydown"
         >
         <div class="sms_send" @click.stop="send">
           <svg height="24" viewBox="0 0 24 24" width="24" @click.stop="send">
@@ -37,21 +35,6 @@
           </svg>
         </div>
     </div>
-    <!-- <div id='sms_write' @contextmenu.prevent="showOptions">
-        <input
-          type="text"
-          v-model="message"
-          :placeholder="IntlString('APP_MESSAGE_PLACEHOLDER_ENTER_MESSAGE')"
-          v-autofocus
-          @keyup.enter.prevent="send"
-        >
-        <div class="sms_send" @click.stop="send">
-          <svg height="24" viewBox="0 0 24 24" width="24" @click.stop="send">
-              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-              <path d="M0 0h24v24H0z" fill="none"/>
-          </svg>
-        </div>
-    </div> -->
   </div>
 </template>
 
@@ -130,6 +113,11 @@ export default {
             })
           }
         })
+      }
+    },
+    onEnterKeydown (e) {
+      if (!e.isComposing) {
+        this.send()
       }
     },
     send () {
