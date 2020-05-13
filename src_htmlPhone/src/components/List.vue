@@ -11,7 +11,7 @@
         @click.stop="selectItem(elem)"
         @contextmenu.prevent="optionItem(elem)"
         >
-          <!-- <div class="elem-option" @click.stop="optionItem(elem)"><i class="fas fa-ellipsis-h" v-if="elem.id != -1 && elem.num != -1"></i></div> -->
+          <div class="elem-option" @click.stop="optionItem(elem)"><i class="fas fa-bars" v-if="elem.id != -1"></i></div>
           <div class="elem-pic" v-bind:style="stylePuce(elem)" @click.stop="selectItem(elem)">
             {{elem.letter || elem[keyDispay][0]}}
           </div>
@@ -179,7 +179,7 @@ export default {
 
 .elem-option {
   padding: 5px;
-  width: 30px;
+  width: 28px;
 }
 
 .elem-option i {
@@ -187,15 +187,16 @@ export default {
 }
 
 .element.select, .element:hover {
-   background-color: #DDD;
+   background-color: #DDD;	
+   position: relative;
+   box-shadow: 1px 1px 2px 0px #AAAAAA;
 }
 
 .elem-pic{
-  margin-left: 12px;
   height: 48px;
   width: 48px;
   text-align: center;
-  line-height: 48px;
+  line-height: 52px;
   font-weight: 700;
 }
 .elem-puce{
@@ -227,7 +228,7 @@ export default {
   position:absolute;
   display:block;
   width:75%;
-  left: 73px;
+  left: 90px; /*73px*/
   top:12px;
   font-size:13.5px;
   font-style:italic;

@@ -505,6 +505,7 @@ export default {
     border-radius: 56px;
 }
 #sms_write input{
+    width: 260px;
     height: 56px;
     border: none;
     outline: none;

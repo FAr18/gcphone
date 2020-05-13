@@ -106,6 +106,7 @@ if (process.env.NODE_ENV !== 'production') {
     {id: 44, transmitter: '01', time, message: 'https://i.imgur.com/gthahbs.png', isRead: 1, owner: 0},
     {id: 45, transmitter: '01', time, message: 'from #74791 : https://i.imgur.com/gthahbs.png https://i.imgur.com/gthahbs.pnghttps://i.imgur.com/gthahbs.png ', isRead: 1, owner: 0},
     {id: 46, transmitter: '01', time, message: 'from #74791 : https://i.imgur.com/gthahbs.pngtesthttps://i.imgur.com/gthahbs.png 測試https://i.imgur.com/gthahbs.png ', isRead: 1, owner: 0},
+    {id: 47, transmitter: '01', time, message: 'from #74791 : https://i.imgur.com/gthahbs.pngtesthttps://i.imgur.com/gthahbs.png 測試GPS : 244, -123', isRead: 1, owner: 0},
     {id: 10, transmitter: '02', time, message: 'Salut sa va ?', isRead: 1, owner: 0},
     {id: 11, transmitter: '04', time, message: 'Salut sa va ?', isRead: 1, owner: 0},
     {id: 12, transmitter: '04', time, message: 'Salut sa va ?', isRead: 1, owner: 0},
