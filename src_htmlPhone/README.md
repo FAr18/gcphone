@@ -5,6 +5,9 @@
 4. 圖片轉傳功能
 5. 訊息的中文輸入優化，現在按下 Enter 確定選字時不會直接發送
 
+![image1](https://imgur.com/dQ6Zpq5.png)
+![image1](https://imgur.com/mUpf1F7.png)
+
 
 # Config 額外字串
 1. "APP_MESSAGE_COPY_PHOTO": "儲存照片位址"
