@@ -1,6 +1,6 @@
 <template>
   <div class="screen">
-    <list :list='messagesData' :disable="disableList" :title="IntlString('APP_MESSAGE_TITLE')" @back="back" @select="onSelect" @option='onOption'></list>
+    <list :list='messagesData' :disable="disableList" :title="IntlString('APP_MESSAGE_TITLE')" @back="back" @select="onSelect" @option="onOption" :optionVisibleRule="'id'"></list>
   </div>
 </template>
 

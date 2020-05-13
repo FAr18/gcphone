@@ -1,6 +1,6 @@
 <template>
   <div class="contact">
-    <list :list='lcontacts' :title="IntlString('APP_MESSAGE_CONTACT_TITLE')" v-on:select="onSelect" @back="back"></list>
+    <list :list='lcontacts' :title="IntlString('APP_MESSAGE_CONTACT_TITLE')" v-on:select="onSelect" @back="back" :optionVisibleRule="'none'"></list>
   </div>
 </template>
 

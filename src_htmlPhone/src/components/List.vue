@@ -11,7 +11,7 @@
         @click.stop="selectItem(elem)"
         @contextmenu.prevent="optionItem(elem)"
         >
-          <div class="elem-option" @click.stop="optionItem(elem)"><i class="fas fa-bars" v-if="elem.id != -1"></i></div>
+          <div class="elem-option" @click.stop="optionItem(elem)"><i class="fas fa-bars" v-if="optionVisibleRule != 'none' && (elem.id || !elem.num) && elem.id != -1"></i></div>
           <div class="elem-pic" v-bind:style="stylePuce(elem)" @click.stop="selectItem(elem)">
             {{elem.letter || elem[keyDispay][0]}}
           </div>
@@ -75,6 +75,10 @@ export default {
     titleBackgroundColor: {
       type: String,
       default: '#FFFFFF'
+    },
+    optionVisibleRule: {
+      type: String,
+      default: 'none'
     }
   },
   watch: {
@@ -196,7 +200,7 @@ export default {
   height: 48px;
   width: 48px;
   text-align: center;
-  line-height: 52px;
+  line-height: 48px;
   font-weight: 700;
 }
 .elem-puce{
