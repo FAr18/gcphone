@@ -10,8 +10,12 @@
         v-bind:class="{ select: key === currentSelect }"
         @click.stop="selectItem(elem)"
         @contextmenu.prevent="optionItem(elem)"
+        @mouseover="currentMouseoverId = key"
+        @mouseleave="currentMouseoverId = -1"
         >
-          <div class="elem-option" @click.stop="optionItem(elem)"><i class="fas fa-bars" v-if="optionVisibleRule != 'none' && (elem.id || !elem.num) && elem.id != -1"></i></div>
+          <div class="elem-option" @click.stop="optionItem(elem)" v-bind:class="{ select: key === currentSelect || key === currentMouseoverId }">
+            <i class="fas fa-bars" v-if="optionVisibleRule != 'none' && (elem.id || !elem.num) && elem.id != -1"></i>
+          </div>
           <div class="elem-pic" v-bind:style="stylePuce(elem)" @click.stop="selectItem(elem)">
             {{elem.letter || elem[keyDispay][0]}}
           </div>
@@ -36,7 +40,8 @@ export default {
   },
   data: function () {
     return {
-      currentSelect: 0
+      currentSelect: 0,
+      currentMouseoverId: -1
     }
   },
   props: {
@@ -184,13 +189,23 @@ export default {
 .elem-option {
   padding: 5px;
   width: 28px;
+  left: -25px;
+  color: white;
+  position: relative;
+  opacity: 0%;
+}
+
+.elem-option.select{
+  left: 0;
+  transition: .5s;
+  opacity: 100%;
 }
 
 .elem-option i {
   color: #aaaaaa
 }
 
-.element.select, .element:hover {
+.element.select, .element:hover{
    background-color: #DDD;	
    position: relative;
    box-shadow: 1px 1px 2px 0px #AAAAAA;
