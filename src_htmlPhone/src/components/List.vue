@@ -198,11 +198,11 @@ export default {
 .elem-option.select{
   left: 0;
   transition: .5s;
-  opacity: 100%;
+  opacity: 1;
 }
 
 .elem-option i {
-  color: #aaaaaa
+  color: #a7a6a6
 }
 
 .element.select, .element:hover{
@@ -247,7 +247,7 @@ export default {
   position:absolute;
   display:block;
   width:75%;
-  left: 90px; /*73px*/
+  left: 88px; /*73px*/
   top:12px;
   font-size:13.5px;
   font-style:italic;
