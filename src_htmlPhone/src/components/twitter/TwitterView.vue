@@ -283,7 +283,7 @@ export default {
 
 .tweet-head {
   padding-bottom: 4px;
-  font-size: 14px;
+  font-size: 18px;
   display: flex;
   flex-direction: row;
   font-weight: 700;
@@ -300,7 +300,7 @@ export default {
 }
 
 .tweet-message{
-  font-size: 14px;
+  font-size: 18px;
   color: 000;
   min-height: 36px;
   word-break: break-word;
