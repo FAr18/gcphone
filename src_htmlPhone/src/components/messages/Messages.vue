@@ -133,7 +133,8 @@ export default {
       return /^https?:\/\/.*\.(png|jpg|jpeg|gif)/.test(mess.message)
     },
     modifyMessage (mess) {
-      return mess.replace(imageRegex, '<img style="width:100%; height:auto;" src="$&">')
+      let message = mess.replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      return message.replace(imageRegex, '<img style="width:100%; height:auto;" src="$&">')
     },
     async onActionMessage (message) {
       try {
