@@ -9,7 +9,7 @@
           v-bind:class="{ select: key === selectMessage}"
           >
           <div class="tweet-img">
-            <img :src="tweet.authorIcon || 'html/static/img/twitter/default_profile.png'" width="48" height="48"/>
+            <img src="html/static/img/twitter/default_profile.png" width="48" height="48" v-real-img="tweet.authorIcon"/>
           </div>
           <div class="tweet-content">
             <div class="tweet-head">
