@@ -202,7 +202,7 @@ export default {
 }
 
 .elem-option i {
-  color: #a7a6a6
+  color: gray;
 }
 
 .element.select, .element:hover{
