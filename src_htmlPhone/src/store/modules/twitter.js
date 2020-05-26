@@ -201,10 +201,18 @@ if (process.env.NODE_ENV !== 'production') {
     authorIcon: 'https://pbs.twimg.com/profile_images/986085090684960768/AcD9lOLw_bigger.jpg',
     likes: 0,
     time: new Date()
+  },
+  {
+    id: 9,
+    message: 'test tweet, 測試用的推文---test tweet, 測試用的推文---test tweet, 測試用的推文---test tweet, 測試用的推文---test tweet, 測試用的推文---https://i.imgur.com/gthahbs.pngtesthttps://i.imgur.com/gthahbs.png',
+    author: '推文機器人',
+    authorIcon: 'https://pbs.twimg.com/profile_images/986085090684960768/AcD9lOLw_bigger.jpg',
+    likes: 0,
+    time: new Date()
   }]
   state.tweets = [{
     id: 1,
-    message: 'test tweet, 測試用的推文---test tweet, 測試用的推文---test tweet, 測試用的推文---test tweet, 測試用的推文---test tweet, 測試用的推文---',
+    message: 'test tweet, 測試用的推文---test tweet, 測試用的推文---test tweet, 測試用的推文---test tweet, 測試用的推文---test tweet, 測試用的推文---https://i.imgur.com/gthahbs.pngtesthttps://i.imgur.com/gthahbs.png',
     author: '推文機器人',
     authorIcon: 'https://pbs.twimg.com/profile_images/986085090684960768/AcD9lOLw_bigger.jpg',
     likes: 0,

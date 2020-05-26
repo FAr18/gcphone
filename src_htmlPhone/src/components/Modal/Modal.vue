@@ -131,6 +131,7 @@ export default {
         line-height: 24px;
         margin-left: 12px;
         margin-right: 12px;
+        width: 25px;
     }
     .modal-choix .picto {
         z-index: 500;

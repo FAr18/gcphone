@@ -17,8 +17,8 @@
               <div class="tweet-head-time">{{formatTime(tweet.time)}}</div>
             </div>
             <div class="tweet-message">
-              <template v-if="!isImage(tweet.message)">{{ tweet.message }}</template>
-              <img v-else :src="tweet.message" class="tweet-attachement-img" @click.stop="imgZoom = tweet.message">
+              <template>{{ replaceImageUrl(tweet.message) }}</template>
+              <img v-if="isIncludeImageUrl(tweet.message)" :src="getFirstImageUrl(tweet.message)" class="tweet-attachement-img" @click.stop="imgZoom = getFirstImageUrl(tweet.message)">
             </div>
             <div class="tweet-like">
 
@@ -53,6 +53,8 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import Modal from '@/components/Modal/index.js'
+
+const imageRegex = /(http(s?):)([/|.|\w|\s|-]|:\d)*\.(?:jpg|gif|png)/g
 
 export default {
   components: {},
@@ -109,6 +111,17 @@ export default {
     },
     isImage (mess) {
       return /^https?:\/\/.*\.(png|jpg|jpeg|gif)/.test(mess)
+    },
+    isIncludeImageUrl (mess) {
+      imageRegex.lastIndex = 0
+      return imageRegex.test(mess)
+    },
+    replaceImageUrl (mess) {
+      return mess.replace(imageRegex, '')
+    },
+    getFirstImageUrl (mess) {
+      imageRegex.lastIndex = 0
+      return mess.match(imageRegex)[0]
     },
     async reply (tweet) {
       const authorName = tweet.author

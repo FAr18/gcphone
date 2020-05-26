@@ -59,9 +59,6 @@ export default {
       if (this.disableList === true) return
       this.$router.push({ name: 'home' })
     },
-    modifyImageMessage: function (message) {
-      return this.isSMSImage(message) ? this.IntlString('APP_MESSAGE_RECEIVED_PHOTO') : message
-    },
     replaceImageUrl: function (message) {
       return message.replace(/(http(s?):)([/|.|\w|\s|-]|:\d)*\.(?:jpg|gif|png)/g, this.IntlString('APP_MESSAGE_REPLACED_IMAGE_URL'))
     },

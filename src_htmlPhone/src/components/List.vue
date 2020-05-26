@@ -14,7 +14,7 @@
         @mouseleave="currentMouseoverId = -1"
         >
           <div class="elem-option" @click.stop="optionItem(elem)" v-bind:class="{ select: key === currentSelect || key === currentMouseoverId }">
-            <i class="fas fa-bars" v-if="optionVisibleRule != 'none' && (elem.id || !elem.num) && elem.id != -1"></i>
+            <i class="fas fa-bars" v-if="optionVisibleRule != 'none' && elem[optionVisibleRule] != -1"></i>
           </div>
           <div class="elem-pic" v-bind:style="stylePuce(elem)" @click.stop="selectItem(elem)">
             {{elem.letter || elem[keyDispay][0]}}
