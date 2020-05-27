@@ -20,7 +20,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['IntlString', 'contacts', 'useMouse']),
+    ...mapGetters(['IntlString', 'contacts', 'useMouse', 'startCall']),
     lcontacts () {
       let addContact = {display: this.IntlString('APP_CONTACT_NEW'), letter: '+', num: '', id: -1}
       return [addContact, ...this.contacts.map(e => {
@@ -38,16 +38,21 @@ export default {
       }
     },
     onOption (contact) {
-      if (contact.id === -1 || contact.id === undefined) return
+      if (contact.id === -1) return //  || contact.id === undefined
       this.disableList = true
+      let choix = [{id: 4, title: this.IntlString('APP_PHONE_CALL'), icons: 'fa-phone'}]
+      if (contact.id) choix.push({id: 5, title: this.IntlString('APP_PHONE_CALL_ANONYMOUS'), icons: 'fa-mask'})
+      if (contact.id) choix.push({id: 1, title: this.IntlString('APP_CONTACT_EDIT'), icons: 'fa-edit', color: 'orange'})
+      choix.push({id: 3, title: this.IntlString('APP_CONTACT_CANCEL'), icons: 'fa-undo'})
       Modal.CreateModal({
-        choix: [
-          {id: 1, title: this.IntlString('APP_CONTACT_EDIT'), icons: 'fa-circle-o', color: 'orange'},
-          {id: 3, title: this.IntlString('APP_CONTACT_CANCEL'), icons: 'fa-undo'}
-        ]
+        choix
       }).then(rep => {
         if (rep.id === 1) {
           this.$router.push({path: 'contact/' + contact.id})
+        } else if (rep.id === 4) {
+          this.startCall({ numero: contact.number })
+        } else if (rep.id === 5) {
+          this.startCall({ numero: '#' + contact.number })
         }
         this.disableList = false
       })
