@@ -16,6 +16,7 @@
 
 <script>
 import events from './events'
+import mapGetters from 'vuex'
 
 export default {
   data () {
@@ -27,8 +28,13 @@ export default {
   mounted () {
     events.$on('add', this.addItem)
   },
+  computed: {
+    ...mapGetters(['IntlString'])
+  },
   methods: {
     async addItem (event = {}) {
+      // process message
+      event.message.replace(/(http(s?):)([/|.|\w|\s|-]|:\d)*\.(?:jpg|gif|png)/g, this.IntlString('APP_MESSAGE_REPLACED_IMAGE_URL'))
       const dataNotif = {
         ...event,
         id: this.currentId ++,

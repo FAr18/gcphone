@@ -67,7 +67,7 @@ const actions = {
     }
     if (notif === true) {
       Vue.notify({
-        message: tweet.message.replace(/(http(s?):)([/|.|\w|\s|-]|:\d)*\.(?:jpg|gif|png)/g, ''),
+        message: tweet.message,
         title: tweet.author + ' :',
         icon: 'twitter',
         sound: state.twitterNotificationSound ? 'Twitter_Sound_Effect.ogg' : undefined
